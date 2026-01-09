@@ -1,5 +1,5 @@
 {
-  description = "NixOS Hyprland + Home Manager (no theme)";
+  description = "NixOS Hyprland + Home Manager (Acer Nitro 5 AN515-55)";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
