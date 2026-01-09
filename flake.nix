@@ -1,30 +1,30 @@
 {
-  description = "NixOS Hyprland + Home Manager (Acer Nitro 5 AN515-55)";
+  description = "Hyprland on Nixos";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nixpkgs.url = "nixpkgs/nixos-unstable";
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }:
-  let
-    system = "x86_64-linux";
-  in {
-    nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-      inherit system;
-
+  outputs = { self, nixpkgs, home-manager, ... }: {
+    nixosConfigurations.hyprland-btw = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
       modules = [
         ./configuration.nix
         home-manager.nixosModules.home-manager
         {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.users.truong = import ./home.nix;
+          home-manager = {
+            useGlobalPkgs = true;
+            useUserPackages = true;
+            users.truong = import ./home.nix;
+            backupFileExtension = "backup";
+          };
         }
       ];
     };
   };
 }
+
